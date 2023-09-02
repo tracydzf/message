@@ -1,0 +1,14 @@
+Name: msg_job-api
+Host: 0.0.0.0
+Port: 8888
+RedisConf:
+  Address: 127.0.0.1:6379
+  Password:
+Mysql:
+  Dsn: root:123456@tcp(127.0.0.1:3306)/austin?charset=utf8mb4&parseTime=True&loc=Local
+  MaxIdleConns: 100
+  MaxOpenConns: 100
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass:
+    Type: node

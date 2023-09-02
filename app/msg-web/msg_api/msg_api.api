@@ -1,0 +1,23 @@
+type SendRequest {
+	Code              string       `json:"code"`
+	MessageTemplateId int64        `json:"messageTemplateId"`
+	MessageParam      MessageParam `json:"messageParam"`
+}
+type MessageParam {
+	Receiver  string                 `json:"receiver"`
+	Variables map[string]interface{} `json:"variables,optional"`
+	Extra     map[string]interface{} `json:"extra,optional"`
+}
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+service msg_api-api {
+	@handler SendHandler
+	post /send (SendRequest)
+}

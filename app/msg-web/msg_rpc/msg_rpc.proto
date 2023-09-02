@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package msg_rpc;
+option go_package="./msg_rpc";
+
+message SendRequest {
+  string Code = 1;
+  int64 MessageTemplateId = 2;
+  MessageParam MessageParam = 3;
+}
+
+message BatchSendRequest {
+  string Code = 1;
+  int64 MessageTemplateId = 2;
+  repeated MessageParam MessageParam = 3;
+}
+
+message MessageParam {
+  string Receiver = 1;
+  string Variables = 2;
+  string Extra = 3;
+}
+
+message SendResponse {
+  string Code = 1;
+}
+
+message PingRequest {
+  string ping = 1;
+}
+
+message PingResponse {
+  string pong = 1;
+}
+
+service Msg {
+  rpc Send(SendRequest) returns(SendResponse);
+  rpc BatchSend(BatchSendRequest) returns(SendResponse);
+  rpc Ping(PingRequest) returns(PingResponse);
+}
