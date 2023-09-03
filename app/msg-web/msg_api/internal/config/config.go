@@ -1,9 +1,11 @@
 package config
 
 import (
-	"msg/common/dbx"
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
 )
 
 type Config struct {
-	Mysql dbx.DbConfig
+	rest.RestConf
+	SendRpcConf zrpc.RpcClientConf
 }

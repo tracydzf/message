@@ -6,6 +6,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"msg/app/msg-common/repo"
 	"msg/app/msg-common/types"
+	"msg/app/msg_job/internal/services/deduplication/deduplicationService"
 	"msg/app/msg_job/internal/services/deduplication/structs"
 	"msg/app/msg_job/internal/svc"
 )
@@ -68,8 +69,8 @@ func (l deduplicationRuleService) Duplication(ctx context.Context, taskInfo *typ
 
 func getExec(exec string, svcCtx *svc.ServiceContext) (structs.DuplicationService, bool) {
 	var duplicationExec = map[string]structs.DuplicationService{
-		deduplicationPrefix + Content:   deduplicationService.NewContentDeduplicationService(svcCtx),
-		deduplicationPrefix + Frequency: deduplicationService.NewFrequencyDeduplicationService(svcCtx),
+		deduplicationPrefix + Content: deduplicationService.NewContentDeduplicationService(svcCtx),
+		//deduplicationPrefix + Frequency: deduplicationService.NewFrequencyDeduplicationService(svcCtx),
 	}
 	v, ok := duplicationExec[exec]
 	return v, ok
