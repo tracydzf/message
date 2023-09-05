@@ -1,4 +1,4 @@
-package listen
+package tasks
 
 import (
 	"context"
@@ -43,11 +43,8 @@ func (l *AsynqServer) Start() {
 
 	// mux maps a type to a handler
 	mux := asynq.NewServeMux()
-	//mux.HandleFunc(mq.TypeTryMakeFriends, l.tryMakeFriendsHandler)
-	//mux.HandleFunc(mq.TypeLoseFriends, l.loseFriendsHandler)
-	//mux.HandleFunc(mq.TypeDelCache, l.delCacheHandler)
-	//mux.HandleFunc(mq.TypeAddCacheValue, l.addCacheValueHandler)
-	//
+	mux.HandleFunc(MainTask, l.MainTask)
+
 	//mux.HandleFunc(cron.TypeSyncUserInfoCache, l.syncUserInfoCacheHandler)
 	//mux.HandleFunc(cron.TypeSyncVideoInfoCache, l.syncVideoInfoCacheHandler)
 	// ...register other handlers...

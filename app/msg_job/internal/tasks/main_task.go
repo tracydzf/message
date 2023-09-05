@@ -14,6 +14,10 @@ type Task struct {
 	svcCtx   *svc.ServiceContext
 }
 
+func NewTask(taskInfo types.TaskInfo, svcCtx *svc.ServiceContext) *Task {
+	return &Task{TaskInfo: taskInfo, svcCtx: svcCtx}
+}
+
 type TaskRun interface {
 	Run(ctx context.Context)
 }

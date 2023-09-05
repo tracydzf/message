@@ -8,8 +8,8 @@ import (
 	"github.com/zeromicro/go-zero/core/service"
 	"msg/app/msg_job/internal/config"
 	"msg/app/msg_job/internal/handler"
-	"msg/app/msg_job/internal/listen"
 	"msg/app/msg_job/internal/svc"
+	"msg/app/msg_job/internal/tasks"
 	"msg/common/dbx"
 )
 
@@ -27,7 +27,7 @@ func main() {
 	serviceGroup := service.NewServiceGroup()
 	defer serviceGroup.Stop()
 
-	serviceGroup.Add(listen.NewAsynqServer(ctx, svcContext))
+	serviceGroup.Add(tasks.NewAsynqServer(ctx, svcContext))
 
 	handler.SetUp(svcContext)
 	dbx.InitDb(c.Mysql)

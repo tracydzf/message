@@ -11,7 +11,7 @@ import (
 	"msg/app/msg_job/internal/svc"
 )
 
-type deduplicationRuleService struct {
+type DeduplicationRuleService struct {
 	svcCtx *svc.ServiceContext
 }
 
@@ -19,13 +19,13 @@ const Content = "10"   //N分钟相同内容去重
 const Frequency = "20" //一天内N次相同渠道去重
 const deduplicationPrefix = "deduplication_"
 
-func NewDeduplicationRuleService(svcCtx *svc.ServiceContext) *deduplicationRuleService {
-	return &deduplicationRuleService{
+func NewDeduplicationRuleService(svcCtx *svc.ServiceContext) *DeduplicationRuleService {
+	return &DeduplicationRuleService{
 		svcCtx: svcCtx,
 	}
 }
 
-func (l deduplicationRuleService) Duplication(ctx context.Context, taskInfo *types.TaskInfo) {
+func (l DeduplicationRuleService) Duplication(ctx context.Context, taskInfo *types.TaskInfo) {
 	one, err := repo.NewMessageTemplateRepo(l.svcCtx.Config.CacheRedis).
 		One(ctx, taskInfo.MessageTemplateId)
 	if err != nil {
@@ -69,8 +69,8 @@ func (l deduplicationRuleService) Duplication(ctx context.Context, taskInfo *typ
 
 func getExec(exec string, svcCtx *svc.ServiceContext) (structs.DuplicationService, bool) {
 	var duplicationExec = map[string]structs.DuplicationService{
-		deduplicationPrefix + Content: deduplicationService.NewContentDeduplicationService(svcCtx),
-		//deduplicationPrefix + Frequency: deduplicationService.NewFrequencyDeduplicationService(svcCtx),
+		deduplicationPrefix + Content:   deduplicationService.NewContentDeduplicationService(svcCtx),
+		deduplicationPrefix + Frequency: deduplicationService.NewFrequencyDeduplicationService(svcCtx),
 	}
 	v, ok := duplicationExec[exec]
 	return v, ok
